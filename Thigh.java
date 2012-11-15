@@ -16,6 +16,8 @@ public class Thigh {
 	
 	private GLine shape;
 	
+	private static double pi = 3.14159;
+	
 	public Thigh(boolean isLeft) {
 		mass = 8;
 		width = 20;
@@ -27,7 +29,7 @@ public class Thigh {
 		} else {
 			angleToBody = 5;
 		}
-		this.shape = new GLine(xloc, yloc, xloc, 250);
+		this.shape = new GLine(xloc, yloc, xloc + Math.cos, 250);
 	}
 	
 	public void drawShape(GraphicsProgram p) {
