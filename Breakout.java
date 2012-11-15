@@ -17,6 +17,9 @@ import java.awt.event.*;
 
 public class Breakout extends GraphicsProgram {
 
+	public static final int APPLICATION_WIDTH = 400;
+	public static final int APPLICATION_HEIGHT = 300;
+	
 	public void run() {
 		
 	}
