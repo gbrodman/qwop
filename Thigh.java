@@ -19,9 +19,9 @@ public class Thigh {
 		mass = 8;
 		width = 20;
 		height = 50;;
-		this.shape = new GRect(width, height);
 		xloc = 200;
 		yloc = 200;
+		this.shape = new GRect(xloc, yloc, width, height);
 		angleToBody = 0;
 	}
 	
