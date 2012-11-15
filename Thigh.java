@@ -1,32 +1,37 @@
+import acm.graphics.GLine;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 
 
 public class Thigh {
 
-	int mass;
-	int xloc; // 0 is aligned vertically
-	int yloc;
+	private int mass;
+	private int xloc; // 0 is aligned vertically
+	private int yloc;
 	
-	int width;
-	int height;
+	private int width;
+	private int height;
 	
-	double angleToBody; // -45 to 90 degrees
+	private double angleToBody; // -45 to 90 degrees
 	
-	GRect shape;
+	private GLine shape;
 	
-	public Thigh() {
+	public Thigh(boolean isLeft) {
 		mass = 8;
 		width = 20;
 		height = 50;;
 		xloc = 200;
 		yloc = 200;
-		this.shape = new GRect(xloc, yloc, width, height);
-		angleToBody = 0;
+		if (isLeft) {
+			angleToBody = 10;
+		} else {
+			angleToBody = 5;
+		}
+		this.shape = new GLine(xloc, yloc, xloc, 250);
 	}
 	
 	public void drawShape(GraphicsProgram p) {
-		
+		p.add(shape);
 	}
 	
 }
