@@ -21,7 +21,7 @@ public class Breakout extends GraphicsProgram {
 	public static final int APPLICATION_HEIGHT = 300;
 	
 	public void run() {
-		Thigh leftThigh = new Thigh();
+		Thigh leftThigh = new Thigh(false);
 		leftThigh.drawShape(this);
 	}
 
