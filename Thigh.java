@@ -7,13 +7,13 @@ import acm.program.GraphicsProgram;
 public class Thigh {
 
 	private int mass;
-	private int xloc; // 0 is aligned vertically
+	private int xloc; 
 	private int yloc;
 	
 	private int width;
 	private int length;
 	
-	private double angleToBody; // -45 to 90 degrees
+	private double angle; // angle away from vertical axis
 	
 	private GPoint start;
 	private GPoint end;
@@ -27,12 +27,12 @@ public class Thigh {
 		xloc = 200;
 		yloc = 200;
 		if (isLeft) {
-			angleToBody = 10 * pi / 180;
+			angle = 10 * pi / 180;
 		} else {
-			angleToBody = 5 * pi / 180;
+			angle = 5 * pi / 180;
 		}
 		this.start = new GPoint(xloc, yloc);
-		this.end = new GPoint(xloc + length * Math.sin(angleToBody), yloc + length * Math.cos(angleToBody));
+		this.end = new GPoint(xloc + length * Math.sin(angle), yloc + length * Math.cos(angle));
 	}
 	
 	public void drawShape(GraphicsProgram p) {
