@@ -13,10 +13,10 @@ public class Thigh {
 	
 	GRect shape;
 	
-	public BodyPart(int mass, int width, int height, int yloc) {
-		this.mass = mass;
-		this.width = width;
-		this.height = height;
+	public Thigh(int width, int yloc) {
+		this.mass = 8;
+		this.width = 20;
+		this.height = 50;
 		this.yloc = yloc;
 		this.shape = new GRect(width, height);
 		xloc = 0;
