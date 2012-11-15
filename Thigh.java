@@ -1,4 +1,5 @@
 import acm.graphics.GLine;
+import acm.graphics.GPoint;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 
@@ -15,7 +16,7 @@ public class Thigh {
 	private double angleToBody; // -45 to 90 degrees
 	
 	private GPoint start;
-	
+	private GPoint end;
 	
 	private static double pi = 3.14159;
 	
@@ -30,11 +31,12 @@ public class Thigh {
 		} else {
 			angleToBody = 5 * pi / 180;
 		}
-		this.shape = new GLine(xloc, yloc, xloc + length * Math.sin(angleToBody), yloc + length * Math.cos(angleToBody));
+		this.start = new GPoint(xloc, yloc);
+		this.end = new GPoint(xloc + length * Math.sin(angleToBody), yloc + length * Math.cos(angleToBody));
 	}
 	
 	public void drawShape(GraphicsProgram p) {
-		p.add(shape);
+		p.add(new GLine(start.getX(), start.getY(), end.getX(), end.getY()));
 	}
 	
 }
