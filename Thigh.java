@@ -39,4 +39,8 @@ public class Thigh {
 		p.add(new GLine(start.getX(), start.getY(), end.getX(), end.getY()));
 	}
 	
+	public void moveUnit() {
+		// move the thigh in some direction by increasing the angle and redrawing
+	}
+	
 }
