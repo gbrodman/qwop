@@ -23,6 +23,8 @@ public class Breakout extends GraphicsProgram {
 	public void run() {
 		Thigh leftThigh = new Thigh(false);
 		leftThigh.drawShape(this);
+		Thigh rightThigh = new Thigh(true);
+		rightThigh.drawShape(this);
 	}
 
 }
