@@ -2,7 +2,7 @@ import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 
 
-public class BodyPart {
+public class Thigh {
 
 	int mass;
 	int xloc; // 0 is aligned vertically
