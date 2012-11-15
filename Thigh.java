@@ -11,6 +11,8 @@ public class Thigh {
 	int width;
 	int height;
 	
+	double angleToBody; // -45 to 90 degrees
+	
 	GRect shape;
 	
 	public Thigh(int width, int yloc) {
@@ -19,7 +21,8 @@ public class Thigh {
 		this.height = 50;
 		this.yloc = yloc;
 		this.shape = new GRect(width, height);
-		xloc = 0;
+		xloc = 200;
+		yloc = 200;
 	}
 	
 	public void drawShape(GraphicsProgram p) {
