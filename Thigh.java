@@ -14,7 +14,8 @@ public class Thigh {
 	
 	private double angleToBody; // -45 to 90 degrees
 	
-	private GLine shape;
+	private GPoint start;
+	
 	
 	private static double pi = 3.14159;
 	
