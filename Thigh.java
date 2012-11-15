@@ -40,7 +40,7 @@ public class Thigh {
 	}
 	
 	public void moveUnit() {
-		// move the thigh in some direction by increasing the angle and redrawing
+		// move the thigh in some direction by increasing the angle and resetting the endpoint
 	}
 	
 }
