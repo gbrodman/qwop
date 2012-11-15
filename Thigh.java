@@ -23,6 +23,7 @@ public class Thigh {
 		this.shape = new GRect(width, height);
 		xloc = 200;
 		yloc = 200;
+		angleToBody = 0;
 	}
 	
 	public void drawShape(GraphicsProgram p) {
