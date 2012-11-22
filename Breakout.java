@@ -22,8 +22,6 @@ public class Breakout extends GraphicsProgram {
 	public static final int APPLICATION_HEIGHT = 300;
 	
 	public void run() {
-		String test = "1 2 3";
-		StringTokenizer tokenizer = new StringTokenizer(test, " ");
 		while (tokenizer.hasMoreTokens()) {
 			String token = tokenizer.nextToken();
 			System.out.println(token);
