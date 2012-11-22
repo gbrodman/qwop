@@ -22,10 +22,6 @@ public class Breakout extends GraphicsProgram {
 	public static final int APPLICATION_HEIGHT = 300;
 	
 	public void run() {
-		while (tokenizer.hasMoreTokens()) {
-			String token = tokenizer.nextToken();
-			System.out.println(token);
-		}
 		Thigh leftThigh = new Thigh(false);
 		leftThigh.drawShape(this);
 		Thigh rightThigh = new Thigh(true);
