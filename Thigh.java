@@ -4,43 +4,77 @@ import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 
 
-public class Thigh {
+public class Thigh extends BodyPart{
 
-	private int mass;
-	private int xloc; 
-	private int yloc;
-	
-	private int width;
 	private int length;
 	
-	private double angle; // angle away from vertical axis
-	
-	private GPoint start;
+	private GPoint hips;
 	private GPoint end;
-	
+	private GLine line;
+
+  private double verticalVelocity;
+  
 	private static double pi = 3.14159;
 	
-	public Thigh(boolean isLeft) {
+	public Thigh(GraphicsProgram p, boolean isBack, GPoint h) {
 		mass = 8;
-		width = 20;
-		length = 50;;
-		xloc = 200;
-		yloc = 200;
-		if (isLeft) {
-			angle = 10 * pi / 180;
+		length = 60;
+		if (isBack) {
+		  angle = 30 * pi / 180;
 		} else {
-			angle = 5 * pi / 180;
+		  angle = 0;
 		}
-		this.start = new GPoint(xloc, yloc);
-		this.end = new GPoint(xloc + length * Math.sin(angle), yloc + length * Math.cos(angle));
+		hips = h;
+		angularVelocity = 0;
+		verticalVelocity = 0;
+    end = new GPoint(hips.getX() + length * Math.sin(angle), hips.getY() + length * Math.cos(angle));
+    line = new GLine(hips.getX(), hips.getY(), end.getX(), end.getY());
+    p.add(line);
 	}
 	
-	public void drawShape(GraphicsProgram p) {
-		p.add(new GLine(start.getX(), start.getY(), end.getX(), end.getY()));
+	public void update(boolean fixCalf) {
+	  angularVelocity *= decayRate;
+	  angle += angularVelocity;
+	  if (fixCalf) {
+	    end.setLocation(end.getX(), end.getY() + verticalVelocity);
+	    hips.setLocation(end.getX() - length * Math.sin(angle), end.getY() - length * Math.cos(angle));
+	  }
+	  else {
+	    hips.setLocation(hips.getX(), hips.getY() + verticalVelocity);
+	    end.setLocation(hips.getX() + length * Math.sin(angle), hips.getY() + length * Math.cos(angle));
+	  }
+    line.setStartPoint(hips.getX(), hips.getY());
+    line.setEndPoint(end.getX(), end.getY());
+	}
+
+	public GPoint getEnd() {
+	  return end;
 	}
 	
-	public void moveUnit() {
-		// move the thigh in some direction by increasing the angle and resetting the endpoint
+	public GPoint getStart() {
+	  return hips; 
 	}
 	
+  public GPoint getCenter() {
+    return new GPoint(.5*hips.getX() + .5*end.getX(), .5*hips.getY() + .5*end.getY());
+  }
+  
+  public void setKnee(GPoint knee) {
+    end = knee;
+  }
+  
+  public void increaseVertVelocity(double amount) {
+    verticalVelocity += amount;
+  }
+  
+  public void setVertVelocity(double amount) {
+    verticalVelocity = amount;
+  }
+  
+
+  @Override
+  public boolean outOfBounds() {
+    return false;
+  }
+  
 }
