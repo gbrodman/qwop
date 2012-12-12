@@ -25,7 +25,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	private static double PI = 3.14159;
 	private static double GRAVITY = .12;
 	// controls speed of angular acceleration
-	private static double ANGLE_ACCEL = .005;
+	private static double ANGLE_ACCEL = .015;
 
 	// Constraints on angles between body parts
 	public static final double MAX_KNEE_ANGLE = 7 * PI / 8;
