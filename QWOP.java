@@ -59,6 +59,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	private boolean dead;
 
 	public void run() {
+		while (true) {
 		double xloc = 300;
 		double yloc = 190;
 		hips = new GPoint(xloc, yloc);
@@ -93,6 +94,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 		while (!dead) {
 			pause(50);
 			fall();
+		}
 		}
 	}
 
