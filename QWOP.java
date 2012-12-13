@@ -149,7 +149,6 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 				pause(50);
 				// TODO: get action
 				int action = 0;
-				// TODO: perform action
 				performAction(action);
 				fall();
 				// TODO: get new state
