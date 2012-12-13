@@ -141,17 +141,20 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 			add(floor);
 
 			setFocusable(true);
+			int curState = 0;
 			while (!dead) {
 				pause(50);
 				// get action
+				int action = 0;
 				// perform action
 				// get new state
 				int newState = 0;
+				// get reward for new state
 				double reward = 0.0;
 				rewardObserved[newState] += reward;
 				timesObservedState[newState]++;
-				tObservedSA[state][]
-				// get reward for new state
+				tObservedSA[curState][action]++;
+				transObserved[curState][action][newState]++;
 				
 				fall();
 			}
