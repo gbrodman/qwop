@@ -27,6 +27,9 @@ public class Head extends BodyPart {
     public void update() {
       circle.setLocation(neck.getX() - radius, neck.getY() - 2*radius);
     }
+    
+    public void copyAllValues() {}
+    public void restoreAllValues() {}
 
     @Override
     public boolean outOfBounds() {

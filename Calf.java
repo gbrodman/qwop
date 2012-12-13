@@ -12,6 +12,8 @@ public class Calf extends BodyPart {
   
   private GPoint start;
   private GPoint end;
+  private GPoint startCopy;
+  private GPoint endCopy;
   private GLine line;
   private Thigh thigh;
   private static double pi = 3.14159;
@@ -22,10 +24,15 @@ public class Calf extends BodyPart {
     // difference between angle with calf's ground and corresponding 
     // thigh's angle with ground; between 0 and 135 degrees
     if (isBack) {
-      angleFromThigh = 20 * pi / 180;
-    } else {
-      angleFromThigh = 40 * pi / 180;
-    }
+        angleFromThigh = Math.random() * pi / 4;
+      } else {
+        angleFromThigh = Math.random() * pi / 4;
+      }
+//    if (isBack) {
+//      angleFromThigh = 20 * pi / 180;
+//    } else {
+//      angleFromThigh = 40 * pi / 180;
+//    }
     angle = t.getAngle() - angleFromThigh;
     angularVelocity = 0;
     thigh = t;
@@ -72,7 +79,19 @@ public class Calf extends BodyPart {
   public void scroll(double amount) {
     end.setLocation(end.getX() + amount, end.getY());
   }
+  
+  public void copyAllValues() {
+	startCopy = new GPoint(start);
+	endCopy = new GPoint(end);
+	angleCopy = angle;
+	angularVelocityCopy = angularVelocity;
+  }
 
+  public void restoreAllValues() {
+	 start.setLocation(startCopy);
+	 end.setLocation(endCopy);
+  }
+  
   @Override
   public boolean outOfBounds() {
     // TODO Auto-generated method stub

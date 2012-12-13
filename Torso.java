@@ -8,9 +8,12 @@ public class Torso extends BodyPart{
     private int length;
     
     private GPoint neck;
+    private GPoint neckCopy;
     private GPoint hips;
+    private GPoint hipsCopy;  
     private GLine line;
     private GPoint shoulders;
+    private GPoint shouldersCopy;
     private static double pi = 3.14159;
     
     public Torso(GraphicsProgram p, GPoint h) {
@@ -19,10 +22,13 @@ public class Torso extends BodyPart{
       angle = 9 * pi / 10;
       angularVelocity = 0;
       hips = h;
+      hipsCopy = new GPoint(hips);
       neck = new GPoint(hips.getX() + length * Math.sin(angle), hips.getY() + length * Math.cos(angle));
+      neckCopy = new GPoint(neck);
       line = new GLine(neck.getX(), neck.getY(), hips.getX(), hips.getY());
       p.add(line);
       shoulders = new GPoint(.75*neck.getX() + .25*hips.getX(), .75*neck.getY() + .25*hips.getY());
+      shouldersCopy = new GPoint(shoulders);
     }
     
     public GPoint getEnd() {
@@ -50,9 +56,21 @@ public class Torso extends BodyPart{
       line.setStartPoint(neck.getX(), neck.getY());
       line.setEndPoint(hips.getX(), hips.getY());
     }
-
-    public void multiplyVelocity(double amount) {
-      angularVelocity *= amount;
+    
+    public void copyAllValues() {
+      neckCopy.setLocation(neck);
+      hipsCopy.setLocation(hips);
+      shouldersCopy.setLocation(shoulders);
+      angleCopy = angle;
+      angularVelocityCopy = angularVelocity;
+    }
+    
+    public void restoreAllValues() {
+      neck.setLocation(neckCopy);
+      hips.setLocation(hipsCopy);
+      shoulders.setLocation(shouldersCopy);
+      angularVelocity = angularVelocityCopy;
+      angle = angleCopy;
     }
 
     @Override

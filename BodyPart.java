@@ -4,6 +4,8 @@ public abstract class BodyPart {
   protected int mass;
   protected double angle; // angle away from vertical axis
   protected double angularVelocity;
+  protected double angleCopy;
+  protected double angularVelocityCopy;
   protected GPoint center;
   protected static final double decayRate = .92;
   protected static final double maxAngVelocity = .05;
@@ -23,6 +25,9 @@ public abstract class BodyPart {
   public void setAngVelocity(double amount) {
     angularVelocity = amount;
   }
+  
+  public abstract void copyAllValues();
+  public abstract void restoreAllValues();
   
   public double getAngle(){
     return angle;

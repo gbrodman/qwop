@@ -46,7 +46,10 @@ public class Arm extends BodyPart{
     line.setStartPoint(shoulders.getX(), shoulders.getY());
     line.setEndPoint(end.getX(), end.getY());
   }
-
+  
+  public void copyAllValues() {}
+  public void restoreAllValues() {}
+  
   @Override
   public boolean outOfBounds() {
     // TODO Auto-generated method stub
