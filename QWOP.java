@@ -110,6 +110,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 		initML();
 		addKeyListeners();
 		int nConsecConv = 0;
+		int numFailures = 0;
 		while (nConsecConv < 20) {
 			dead = false;
 			removeAll();
@@ -214,8 +215,12 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 					values = newValues;
 					break;
 				}
-
 				values = newValues;
+			}
+			if (numberIterations == 1) {
+				nConsecConv++;
+			} else {
+				nConsecConv = 0;
 			}
 		}
 
