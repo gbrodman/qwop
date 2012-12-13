@@ -149,7 +149,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 				// TODO: perform action
 				// TODO: get new state
 				int newState = 0;
-				// get reward for new state
+				// TODO: get reward for new state
 				double reward = 0.0;
 				rewardObserved[newState] += reward;
 				timesObservedState[newState]++;
