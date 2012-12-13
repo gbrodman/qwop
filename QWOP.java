@@ -30,7 +30,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	double timesObservedState[] = new double[NSTATES];
 	double totalRewards[] = new double[NSTATES];
 	
-	Random rand;
+	Random rand = new Random();
 	
 
 	public static final int APPLICATION_WIDTH = 600;
