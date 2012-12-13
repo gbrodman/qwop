@@ -30,23 +30,36 @@ public class Calf extends BodyPart {
     angularVelocity = 0;
     thigh = t;
     this.start = thigh.getEnd();
-    this.end = new GPoint(this.start.getX() + length * Math.sin(angle),
-                          this.start.getY() + length * Math.cos(angle));
+    this.end = new GPoint(start.getX() + length * Math.sin(angle),
+                          start.getY() + length * Math.cos(angle));
     line = new GLine(start.getX(), start.getY(), end.getX(), end.getY());
     p.add(line);
   }
   
   
-  public void update() {
+  public void update(boolean plantFoot) {
     angularVelocity *= .8;
-    start = thigh.getEnd();
-    //angle = thigh.getAngle() - angleFromThigh;
     angle += angularVelocity + thigh.angularVelocity;
-    end = new GPoint(this.start.getX() + length * Math.sin(angle),
-                     this.start.getY() + length * Math.cos(angle));
+    if (plantFoot) {
+      start = new GPoint(end.getX() - length * Math.sin(angle),
+                         end.getY() - length * Math.cos(angle));
+      thigh.setKnee(start);
+    }
+    else {
+      start = thigh.getEnd();
+      angleFromThigh = thigh.getAngle() - angle;
+      if (angleFromThigh > (9*pi/10)) {
+        angle = thigh.getAngle() - (9*pi/10);
+      }
+      if (angleFromThigh < (pi/8)) {
+        angle = thigh.getAngle() - pi/8;
+      }
+      end = new GPoint(start.getX() + length * Math.sin(angle),
+                       start.getY() + length * Math.cos(angle));
+    }
     line.setStartPoint(start.getX(), start.getY());
     line.setEndPoint(end.getX(), end.getY());  
-    }
+  }
 
   public GPoint getCenter() {
     return new GPoint(.5*start.getX() + .5*end.getX(), .5*start.getY() + .5*end.getY());
@@ -56,6 +69,9 @@ public class Calf extends BodyPart {
     return end;
   }
 
+  public void scroll(double amount) {
+    end.setLocation(end.getX() + amount, end.getY());
+  }
 
   @Override
   public boolean outOfBounds() {
