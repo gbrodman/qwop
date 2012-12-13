@@ -161,6 +161,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 
 				fall();
 			}
+			numFailures++;
 			// Update parameters
 			for (int i = 0; i < NSTATES; i++) {
 				if (timesObservedState[i] == 0) {
