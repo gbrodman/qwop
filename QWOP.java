@@ -112,6 +112,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 		int nConsecConv = 0;
 		int numFailures = 0;
 		while (nConsecConv < 20) {
+			long startTime = System.currentTimeMillis();
 			dead = false;
 			removeAll();
 			double xloc = 300;
@@ -162,6 +163,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 				fall();
 			}
 			numFailures++;
+			System.out.println("Time to failure (in ms): " + (System.currentTimeMillis() - startTime));
 			// Update parameters
 			for (int i = 0; i < NSTATES; i++) {
 				if (timesObservedState[i] == 0) {
