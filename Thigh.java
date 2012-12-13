@@ -13,6 +13,7 @@ public class Thigh extends BodyPart{
 	private GLine line;
 
   private double verticalVelocity;
+  private double horizontalVelocity;
   
 	private static double pi = 3.14159;
 	
@@ -32,11 +33,12 @@ public class Thigh extends BodyPart{
     p.add(line);
 	}
 	
-	public void update(boolean fixCalf) {
+	public void update(boolean fixKnee) {
 	  angularVelocity *= decayRate;
+	  horizontalVelocity *= decayRate;
 	  angle += angularVelocity;
-	  if (fixCalf) {
-	    end.setLocation(end.getX(), end.getY() + verticalVelocity);
+	  if (fixKnee) {
+	    end.setLocation(end.getX() + horizontalVelocity, end.getY() + verticalVelocity);
 	    hips.setLocation(end.getX() - length * Math.sin(angle), end.getY() - length * Math.cos(angle));
 	  }
 	  else {
@@ -61,10 +63,19 @@ public class Thigh extends BodyPart{
   
   public void setKnee(GPoint knee) {
     end = knee;
+    line.setEndPoint(end.getX(), end.getY());
   }
   
   public void increaseVertVelocity(double amount) {
     verticalVelocity += amount;
+  }
+  
+  public void increaseHorVelocity(double amount) {
+    horizontalVelocity += amount;
+  }
+  
+  public double getVertVelocity() {
+    return verticalVelocity;
   }
   
   public void setVertVelocity(double amount) {

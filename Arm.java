@@ -16,10 +16,10 @@ public class Arm extends BodyPart{
     mass = 5;
     length = 65;
     if (isLeft) {
-      angle = (Math.random()-.5)*pi;
+      angle = pi/4;
     }
     else {
-      angle = (Math.random()-.5)*pi;
+      angle = -pi/6;
     }
     shoulders = s;
     end = new GPoint(shoulders.getX() + length * Math.sin(angle), shoulders.getY() + length * Math.cos(angle));
