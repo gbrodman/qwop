@@ -251,46 +251,16 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	
 	public void performAction(int action) {
 		if (qActions.contains(action)) {
-			
+			moveLeftThigh();
 		}
 		if (wActions.contains(action)) {
-			
+			moveRightThigh();
 		}
 		if (oActions.contains(action)) {
-			
+			moveLeftCalf();
 		}
 		if (pActions.contains(action)) {
-			
-		}
-	}
-
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		switch (arg0.getKeyChar()) {
-		case 'q': {
-			moveLeftThigh();
-			break;
-		}
-		case 'w': {
-			moveRightThigh();
-			break;
-		}
-		case 'o': {
-			moveLeftCalf();
-			break;
-		}
-		case 'p': {
 			moveRightCalf();
-			break;
-		}
 		}
 	}
 
