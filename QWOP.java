@@ -16,7 +16,10 @@ import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 
 public class QWOP extends GraphicsProgram implements KeyListener {
 	
@@ -31,6 +34,10 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	double totalRewards[] = new double[NSTATES];
 	
 	int curState;
+	Set<Integer> qActions;
+	Set<Integer> wActions;
+	Set<Integer> oActions;
+	Set<Integer> pActions;
 	
 	Random rand = new Random();
 	
@@ -75,8 +82,17 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	private int countSame = 0;
 
 	private boolean dead;
-	
+
+	/*
+	 * 0 = none 1 = Q 2 = w 3 = o 4 = p 5 = qw 6 = wo 7 = op 8 = qo 9 = qp 10 =
+	 * wp 11 = qwo 12 = qwp 13 = qop 14 = wop 15 = qwop
+	 */
 	public void initML() {
+		qActions = new HashSet<Integer>(Arrays.asList(1, 5, 8, 9, 11, 12, 13, 15));
+		wActions = new HashSet<Integer>(Arrays.asList(2, 5, 6, 10, 11, 12, 14, 15));
+		oActions = new HashSet<Integer>(Arrays.asList(3, 6, 7, 8, 11, 13, 14, 15));
+		pActions = new HashSet<Integer>(Arrays.asList(4, 8, 9, 10, 12, 13, 14, 15));
+
 		for (int i = 0; i < NSTATES; i++) {
 			values[i] = rand.nextDouble() / 10.0;
 			for (int j = 0; j < NACTIONS; j++) {
@@ -86,24 +102,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 			}
 		}
 	}
-	/*
-	 * 0 = none
-	 * 1 = Q
-	 * 2 = w
-	 * 3 = o
-	 * 4 = p
-	 * 5 = qw
-	 * 6 = wo
-	 * 7 = op
-	 * 8 = qo
-	 * 9 = qp
-	 * 10 = wp
-	 * 11 = qwo
-	 * 12 = qwp
-	 * 13 = qop
-	 * 14 = wop
-	 * 15 = qwop
-	 */
+
 	
 
 	public void run() {
@@ -151,6 +150,8 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 				// TODO: get action
 				int action = 0;
 				// TODO: perform action
+				performAction(action);
+				fall();
 				// TODO: get new state
 				int newState = 0;
 				// TODO: get reward for new state
@@ -160,7 +161,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 				tObservedSA[curState][action]++;
 				transObserved[curState][action][newState]++;
 
-				fall();
+				curState = newState;
 			}
 			numFailures++;
 			System.out.println("Time to failure (in ms): " + (System.currentTimeMillis() - startTime));
@@ -227,6 +228,29 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 			}
 		}
 
+	}
+	
+	/*
+	 * 0 = none
+	 * 1 = Q
+	 * 2 = w
+	 * 3 = o
+	 * 4 = p
+	 * 5 = qw
+	 * 6 = wo
+	 * 7 = op
+	 * 8 = qo
+	 * 9 = qp
+	 * 10 = wp
+	 * 11 = qwo
+	 * 12 = qwp
+	 * 13 = qop
+	 * 14 = wop
+	 * 15 = qwop
+	 */
+	
+	public void performAction(int action) {
+		if (action == )
 	}
 
 	@Override
