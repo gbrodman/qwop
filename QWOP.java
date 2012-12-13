@@ -155,8 +155,27 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 				timesObservedState[newState]++;
 				tObservedSA[curState][action]++;
 				transObserved[curState][action][newState]++;
-				
+
 				fall();
+			}
+			for (int i = 0; i < NSTATES; i++) {
+				if (timesObservedState[i] == 0) {
+					totalRewards[i] = 0;
+				} else {
+					totalRewards[i] = rewardObserved[i] / timesObservedState[i];
+				}
+				for (int j = 0; j < NACTIONS; j++) {
+					double totalTimes = 0.0;
+					for (int k = 0; k < NSTATES; k++) {
+						totalTimes = totalTimes + transObserved[i][j][k];
+					}
+					for (int k = 0; k < NSTATES; k++) {
+						if (totalTimes != 0) {
+							transProb[i][j][k] = transObserved[i][j][k]
+									/ totalTimes;
+						}
+					}
+				}
 			}
 		}
 
