@@ -34,6 +34,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	
 	Random rand = new Random();
 	
+	double GAMMA = 0.995;
 
 	public static final int APPLICATION_WIDTH = 600;
 	public static final int APPLICATION_HEIGHT = 320;
@@ -177,6 +178,51 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 						}
 					}
 				}
+			}
+			
+			int numberIterations = 0;
+			while (true) {
+				numberIterations++;
+				double newValues[] = new double[NSTATES];
+				// set new values
+				for (int i = 0; i < NSTATES; i++) {
+					double stateTotals[] = new double[NSTATES];
+					for (int k = 0; k < NSTATES; k++) {
+						stateTotals[k] = totalRewards[k];
+					}
+					for (int j = 0; j < NACTIONS; j++) {
+						for (int k = 0; k < NSTATES; k++) {
+							stateTotals[k] += (transProb[i][j][k] * values[k]);
+						}
+					}
+					double max = Double.MIN_VALUE;
+					for (int k = 0; k < NSTATES; k++) {
+						if (stateTotals[k] > max) {
+							max = stateTotals[k];
+						}
+					}
+					newValues[i] = totalRewards[i] + 
+				}
+	            if state1total > state2total
+	                new_values(1, i) = total_state_rewards(1, i) + (GAMMA * state1total);
+	            else
+	                new_values(1, i) = total_state_rewards(1, i) + (GAMMA * state2total);
+	            end
+	        end
+	        converged = 0;
+	        for i = 1:NUM_STATES
+	            if abs(new_values(1, i) - value_func(1, i)) >= TOLERANCE
+	                converged = 1;
+	            end
+	        end
+	        if converged == 0
+	            value_func = new_values;
+	            break;
+	        end
+	            
+	        //if they've converged, set equal and break
+	        value_func = new_values;
+	        
 			}
 		}
 
