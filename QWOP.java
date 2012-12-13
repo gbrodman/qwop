@@ -35,6 +35,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	Random rand = new Random();
 	
 	double GAMMA = 0.995;
+	double TOLERANCE = 0.01;
 
 	public static final int APPLICATION_WIDTH = 600;
 	public static final int APPLICATION_HEIGHT = 320;
