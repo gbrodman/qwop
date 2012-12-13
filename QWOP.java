@@ -73,6 +73,8 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	private ArrayList<BodyPart> bodyParts;
 	private GOval center;
 	private GLine floor;
+	
+	double distance = 0.0;
 
 	private enum Case {
 		FRONT, BACK, BOTH, NEITHER
@@ -147,8 +149,22 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 			int curState = 0;
 			while (!dead) {
 				pause(50);
-				// TODO: get action
+				// Get action
 				int action = 0;
+				double totals[] = new double[NACTIONS];
+				for (int j = 0; j < NACTIONS; j++) {
+					for (int i = 0; i < NSTATES; i++) {
+						totals[j] += (transProb[curState][j][i] * values[i]);
+					}
+				}
+				double max = Double.MIN_VALUE;
+				for (int i = 0; i < NACTIONS; i++) {
+					if (totals[i] > max) {
+						max = totals[i];
+						action = i;
+					}
+				}
+				// Perform action
 				performAction(action);
 				fall();
 				// TODO: get new state
