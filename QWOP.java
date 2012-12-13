@@ -43,6 +43,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	
 	double GAMMA = 0.995;
 	double TOLERANCE = 0.01;
+	double DEATH_PENALTY = 5.0;
 
 	public static final int APPLICATION_WIDTH = 600;
 	public static final int APPLICATION_HEIGHT = 320;
@@ -169,8 +170,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 				fall();
 				// TODO: get new state
 				int newState = 0;
-				// TODO: get reward for new state
-				double reward = 0.0;
+				double reward = getReward();
 				rewardObserved[newState] += reward;
 				timesObservedState[newState]++;
 				tObservedSA[curState][action]++;
@@ -243,6 +243,12 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 			}
 		}
 
+	}
+	
+	public double getReward() {
+		double distValue = Math.sqrt(distance);
+		if (dead) distValue -= DEATH_PENALTY;
+		return distValue;
 	}
 
 	/*
