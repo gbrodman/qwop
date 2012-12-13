@@ -201,28 +201,20 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 							max = stateTotals[k];
 						}
 					}
-					newValues[i] = totalRewards[i] + 
+					newValues[i] = totalRewards[i] + GAMMA * max;
 				}
-	            if state1total > state2total
-	                new_values(1, i) = total_state_rewards(1, i) + (GAMMA * state1total);
-	            else
-	                new_values(1, i) = total_state_rewards(1, i) + (GAMMA * state2total);
-	            end
-	        end
-	        converged = 0;
-	        for i = 1:NUM_STATES
-	            if abs(new_values(1, i) - value_func(1, i)) >= TOLERANCE
-	                converged = 1;
-	            end
-	        end
-	        if converged == 0
-	            value_func = new_values;
-	            break;
-	        end
-	            
-	        //if they've converged, set equal and break
-	        value_func = new_values;
-	        
+				boolean notConverged = false;
+				for (int i = 0; i < NSTATES; i++) {
+					if (Math.abs(newValues[i] - values[i]) >= TOLERANCE) {
+						notConverged = true;
+					}
+				}
+				if (!notConverged) {
+					values = newValues;
+					break;
+				}
+
+				values = newValues;
 			}
 		}
 
