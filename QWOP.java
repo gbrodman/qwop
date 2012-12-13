@@ -23,6 +23,11 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	public static final int NACTIONS = 16;
 	double values[] = new double[NSTATES];
 	double transProb[][][] = new double[NSTATES][NACTIONS][NSTATES];
+	double transObserved[][][] = new double[NSTATES][NACTIONS][NSTATES];
+	double rewardObserved[] = new double[NSTATES];
+	double tObservedSA[][] = new double[NSTATES][NACTIONS];
+	double timesObservedState[] = new double[NSTATES];
+	double totalRewards[] = new double[NSTATES];
 	
 
 	public static final int APPLICATION_WIDTH = 600;
