@@ -87,7 +87,6 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 		initML();
 		addKeyListeners();
 		while (true) {
-			bodyParts.clear();
 			removeAll();
 			double xloc = 300;
 			double yloc = 190;
