@@ -85,6 +85,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	
 	public void run() {
 		initML();
+		bodyParts.clear();
 		double xloc = 300;
 		double yloc = 190;
 		hips = new GPoint(xloc, yloc);
