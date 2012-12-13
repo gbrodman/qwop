@@ -18,6 +18,8 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 public class QWOP extends GraphicsProgram implements KeyListener {
+	
+	public static final int NUM_STATES = 200;
 
 	public static final int APPLICATION_WIDTH = 600;
 	public static final int APPLICATION_HEIGHT = 320;
