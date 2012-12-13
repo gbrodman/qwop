@@ -30,6 +30,8 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	double timesObservedState[] = new double[NSTATES];
 	double totalRewards[] = new double[NSTATES];
 	
+	int curState;
+	
 	Random rand = new Random();
 	
 
@@ -82,6 +84,25 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 			}
 		}
 	}
+	/*
+	 * 0 = none
+	 * 1 = Q
+	 * 2 = w
+	 * 3 = o
+	 * 4 = p
+	 * 5 = qw
+	 * 6 = wo
+	 * 7 = op
+	 * 8 = qo
+	 * 9 = qp
+	 * 10 = wp
+	 * 11 = qwo
+	 * 12 = qwp
+	 * 13 = qop
+	 * 14 = wop
+	 * 15 = qwop
+	 */
+	
 
 	public void run() {
 		initML();
@@ -122,6 +143,16 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 			setFocusable(true);
 			while (!dead) {
 				pause(50);
+				// get action
+				// perform action
+				// get new state
+				int newState = 0;
+				double reward = 0.0;
+				rewardObserved[newState] += reward;
+				timesObservedState[newState]++;
+				tObservedSA[state][]
+				// get reward for new state
+				
 				fall();
 			}
 		}
