@@ -82,47 +82,49 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 			}
 		}
 	}
-	
+
 	public void run() {
 		initML();
-		bodyParts.clear();
-		removeAll();
-		double xloc = 300;
-		double yloc = 190;
-		hips = new GPoint(xloc, yloc);
-		backThigh = new Thigh(this, true, hips);
-		frontThigh = new Thigh(this, false, hips);
-		backCalf = new Calf(this, true, backThigh);
-		frontCalf = new Calf(this, false, frontThigh);
-		torso = new Torso(this, hips);
-		shoulders = torso.getShoulders();
-		neck = torso.getStart();
-		backArm = new Arm(this, true, shoulders);
-		frontArm = new Arm(this, false, shoulders);
-		head = new Head(this, neck);
-
-		bodyParts = new ArrayList<BodyPart>();
-		bodyParts.add(backThigh);
-		bodyParts.add(frontThigh);
-		bodyParts.add(backCalf);
-		bodyParts.add(frontCalf);
-		bodyParts.add(backArm);
-		bodyParts.add(frontArm);
-		bodyParts.add(torso);
-		bodyParts.add(head);
-
-		center = new GOval(5, 5);
-		floor = new GLine(0, 300, 600, 300);
-		add(center);
-		add(floor);
-
 		addKeyListeners();
-		setFocusable(true);
-		while (!dead) {
-			pause(50);
-			fall();
+		while (true) {
+			bodyParts.clear();
+			removeAll();
+			double xloc = 300;
+			double yloc = 190;
+			hips = new GPoint(xloc, yloc);
+			backThigh = new Thigh(this, true, hips);
+			frontThigh = new Thigh(this, false, hips);
+			backCalf = new Calf(this, true, backThigh);
+			frontCalf = new Calf(this, false, frontThigh);
+			torso = new Torso(this, hips);
+			shoulders = torso.getShoulders();
+			neck = torso.getStart();
+			backArm = new Arm(this, true, shoulders);
+			frontArm = new Arm(this, false, shoulders);
+			head = new Head(this, neck);
+
+			bodyParts = new ArrayList<BodyPart>();
+			bodyParts.add(backThigh);
+			bodyParts.add(frontThigh);
+			bodyParts.add(backCalf);
+			bodyParts.add(frontCalf);
+			bodyParts.add(backArm);
+			bodyParts.add(frontArm);
+			bodyParts.add(torso);
+			bodyParts.add(head);
+
+			center = new GOval(5, 5);
+			floor = new GLine(0, 300, 600, 300);
+			add(center);
+			add(floor);
+
+			setFocusable(true);
+			while (!dead) {
+				pause(50);
+				fall();
+			}
 		}
-		
+
 	}
 
 	@Override
