@@ -229,26 +229,12 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 		}
 
 	}
-	
+
 	/*
-	 * 0 = none
-	 * 1 = Q
-	 * 2 = w
-	 * 3 = o
-	 * 4 = p
-	 * 5 = qw
-	 * 6 = wo
-	 * 7 = op
-	 * 8 = qo
-	 * 9 = qp
-	 * 10 = wp
-	 * 11 = qwo
-	 * 12 = qwp
-	 * 13 = qop
-	 * 14 = wop
-	 * 15 = qwop
+	 * 0 = none 1 = Q 2 = w 3 = o 4 = p 5 = qw 6 = wo 7 = op 8 = qo 9 = qp 10 =
+	 * wp 11 = qwo 12 = qwp 13 = qop 14 = wop 15 = qwop
 	 */
-	
+
 	public void performAction(int action) {
 		if (qActions.contains(action)) {
 			moveLeftThigh();
