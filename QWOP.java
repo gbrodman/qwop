@@ -19,9 +19,10 @@ import java.util.ArrayList;
 
 public class QWOP extends GraphicsProgram implements KeyListener {
 	
-	public static final int NUM_STATES = 200;
-	public static final int NUM_ACTIONS = 16;
-	double values[] = new double[NUM_STATES];
+	public static final int NSTATES = 200;
+	public static final int NACTIONS = 16;
+	double values[] = new double[NSTATES];
+	double transProb[][][] = new double[NSTATES][NACTIONS][NSTATES];
 	
 
 	public static final int APPLICATION_WIDTH = 600;
