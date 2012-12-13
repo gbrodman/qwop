@@ -250,7 +250,18 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	 */
 	
 	public void performAction(int action) {
-		if (action == )
+		if (qActions.contains(action)) {
+			
+		}
+		if (wActions.contains(action)) {
+			
+		}
+		if (oActions.contains(action)) {
+			
+		}
+		if (pActions.contains(action)) {
+			
+		}
 	}
 
 	@Override
