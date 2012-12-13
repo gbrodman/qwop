@@ -16,6 +16,7 @@ import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class QWOP extends GraphicsProgram implements KeyListener {
 	
@@ -28,6 +29,8 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	double tObservedSA[][] = new double[NSTATES][NACTIONS];
 	double timesObservedState[] = new double[NSTATES];
 	double totalRewards[] = new double[NSTATES];
+	
+	Random rand;
 	
 
 	public static final int APPLICATION_WIDTH = 600;
@@ -68,8 +71,19 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	private int countSame = 0;
 
 	private boolean dead;
-
+	
+	public void initML() {
+		for (int i = 0; i < NSTATES; i++) {
+			values[i] = rand.nextDouble() / 10.0;
+			for (int j = 0; j < NACTIONS; j++) {
+				for (int k = 0; k < NSTATES; k++) {
+					transProb[i][j][k] = 1 / (double) NSTATES;
+				}
+			}
+		}
+	}
 	public void run() {
+		initML();
 		double xloc = 300;
 		double yloc = 190;
 		hips = new GPoint(xloc, yloc);
