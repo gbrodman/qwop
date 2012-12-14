@@ -14,23 +14,29 @@ public class Thigh extends BodyPart{
 	private GPoint endCopy;
 	private GLine line;
 
-    private double verticalVelocity;
-    private double horizontalVelocity;
+  private double verticalVelocity;
+  private double verticalVelocityCopy;
+  private double horizontalVelocity;
   
 	private static double pi = 3.14159;
 	
-	public Thigh(GraphicsProgram p, boolean isBack, GPoint h) {
+	public Thigh(GraphicsProgram p, boolean isBack, GPoint h, boolean rand) {
 		mass = 8;
 		length = 60;
-//		if (isBack) {
-//		  angle = 30 * pi / 180;
-//		} else {
-//		  angle = 0;
-//		}
-		if (isBack) {
-			  angle = Math.random() * pi / 4;
-			} else {
-			  angle = Math.random() * pi / 4 - pi / 8;
+		if (rand) {
+		  if (isBack) {
+        angle = Math.random() * pi / 4 + pi / 8;
+      } else {
+        angle = Math.random() * pi / 4 - pi / 8;
+    }
+
+		}
+		else {
+		  if (isBack) {
+		    angle = 20 * pi / 180;
+		  } else {
+		    angle = -20 * pi / 180;
+		  }
 		}
 		hips = h;
 		hipsCopy = new GPoint(h);
@@ -97,6 +103,7 @@ public class Thigh extends BodyPart{
 	endCopy.setLocation(end);
 	angleCopy = angle;
 	angularVelocityCopy = angularVelocity;
+	verticalVelocityCopy = verticalVelocity;
   }
 
   public void restoreAllValues() {
@@ -104,6 +111,7 @@ public class Thigh extends BodyPart{
 	 end.setLocation(endCopy);
 	 angle = angleCopy;
 	 angularVelocity = angularVelocityCopy; 
+	 verticalVelocity = verticalVelocityCopy;
   }
   @Override
   public boolean outOfBounds() {

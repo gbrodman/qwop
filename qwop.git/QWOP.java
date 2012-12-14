@@ -25,12 +25,10 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 
 	public static final int NSTATES = 700;
 	public static final int NACTIONS = 16;
-  public static final int NFEATURES = 3;
-  
+
 	public static final int APPLICATION_WIDTH = 600;
 	public static final int APPLICATION_HEIGHT = 320;
 
-	
 	private static double PI = 3.14159;
 	private static double GRAVITY = .12;
 	// controls speed of angular acceleration
@@ -42,7 +40,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	public static final double MAX_THIGH_ANGLE = 150 * PI / 180;
 	public static final double MIN_THIGH_TORSO_ANGLE = 90 * PI / 180;
 	public static final double MAX_THIGH_TORSO_ANGLE = 240 * PI / 180;
-	public static final double DEATH_PENALTY = 500.0;
+	public static final double DEATH_PENALTY = 100.0;
 
 	Set<Integer> qActions;
 	Set<Integer> wActions;
@@ -52,7 +50,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	double frontKneeAngle;
 	double backKneeAngle;
 	double thighsAngle;
-	double lastScore = 0;
+	double score;
 	double scrollVelocity;
 	double distToCenter;
 
@@ -79,7 +77,6 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	private GLabel scoreLabel;
 
 	double distance = 0.0;
-	double lastDistance = 0.0;
 
 	private enum Case {
 		FRONT, BACK, BOTH, NEITHER
@@ -90,7 +87,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 
 	private boolean dead;
 
-	public void init(boolean rand) {
+	public void init() {
 
 		qActions = new HashSet<Integer>(Arrays.asList(1, 5, 8, 9, 11, 12, 13,
 				15));
@@ -101,7 +98,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 		pActions = new HashSet<Integer>(Arrays.asList(4, 8, 9, 10, 12, 13, 14,
 				15));
 
-		distance = 0;
+		score = 0;
 		//scoreLabel = new GLabel("Distance: 0", 20, 20);
 		//add(scoreLabel);
 		//addKeyListeners();
@@ -109,10 +106,10 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 		double xloc = 300;
 		double yloc = 190;
 		hips = new GPoint(xloc, yloc);
-		backThigh = new Thigh(this, true, hips, rand);
-		frontThigh = new Thigh(this, false, hips, rand);
-		backCalf = new Calf(this, true, backThigh, rand);
-		frontCalf = new Calf(this, false, frontThigh, rand);
+		backThigh = new Thigh(this, true, hips);
+		frontThigh = new Thigh(this, false, hips);
+		backCalf = new Calf(this, true, backThigh);
+		frontCalf = new Calf(this, false, frontThigh);
 		torso = new Torso(this, hips);
 		shoulders = torso.getShoulders();
 		neck = torso.getStart();
@@ -140,32 +137,21 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 		//}
 
 	}
+
 	public double getReward() {
-	  double score = distance / Math.pow(timeStep, .6) / 25;
-		if (dead) return score - DEATH_PENALTY;
-		double ret = score;
-		lastScore = ret;
-		return ret;
+		if (dead) return -DEATH_PENALTY + score / timeStep;
+		else return Math.sqrt(score);
 	}
 
 	public boolean isDead() {
 		return dead;
 	}
-
-  public void save() {
-    lastDistance = distance;
-    for (BodyPart b : bodyParts) {
-      b.copyAllValues();
-    }
-  }
-  
+	
 	public void revert() {
+	
 	  for (BodyPart b : bodyParts) {
-	    b.restoreAllValues();
+		b.restoreAllValues();
 	  }
-	  dead = false;
-	  timeStep--;
-	  distance = lastDistance;
 	}
 
 	/*
@@ -189,22 +175,10 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	}
 
 	public double[] getState() {
-	  double pivotVelocity = 0;
-	  switch (last) {
-	    case BACK: pivotVelocity = backThigh.angularVelocity; break;
-	    case FRONT: pivotVelocity = frontThigh.angularVelocity; break;
-	    default: pivotVelocity = (frontThigh.angularVelocity + backThigh.angularVelocity)/2; break;
-	  }
-		double[] state = new double[]{thighsAngle, pivotVelocity,
-		    /*frontThigh.angularVelocity, backThigh.angularVelocity, */
-		    centerX};
+		double[] state = {backKneeAngle, frontKneeAngle, thighsAngle, distToCenter, last.ordinal()};
 		return state;
 	}
 
-	public double getDistance() {
-	  return distance;
-	}
-	
 	private void moveLeftThigh() {
 		if (thighsAngle < MAX_THIGH_ANGLE) {
 			backThigh.increaseAngVelocity(-3*ANGLE_ACCEL);
@@ -231,9 +205,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 		if (backKneeAngle < MAX_KNEE_ANGLE) 
 			backCalf.increaseAngVelocity(2*ANGLE_ACCEL);
 	}
-	
 	public void fall() {
-	  if (timeStep > 20000) dead = true;
 		timeStep++;
 		// coordinates of center of gravity
 		double newCenterX = 0;
@@ -244,6 +216,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 			if (b.outOfBounds()){
 				dead = true;
 			}
+			b.copyAllValues();
 		}
 
 		for (BodyPart b : bodyParts) {
@@ -254,10 +227,9 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 
 		newCenterX /= mass;
 		newCenterY /= mass;
-		// skip first time 
-		if(centerX != 0) {
-		  distance += newCenterX - centerX;
-		}
+
+		score += newCenterX - centerX;
+
 		centerX = newCenterX;
 		centerY = newCenterY;
 
@@ -268,7 +240,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 		backCalf.scroll(scrollVelocity);
 		frontCalf.scroll(scrollVelocity);
 
-		distance -= scrollVelocity;
+		score -= scrollVelocity;
 
 		center.setLocation(new GPoint(centerX, centerY));
 
@@ -352,7 +324,6 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 				// X coord of midpoint between feet
 				double mid = .5*(backCalf.getEnd().getX() + frontCalf.getEnd().getX());
 				angularAccel = -.005*ANGLE_ACCEL*(center.getX() - mid);
-				distToCenter = center.getX() - mid;
 				frontThigh.increaseAngVelocity(angularAccel);
 				backThigh.increaseAngVelocity(angularAccel);
 				backCalf.update(false);
@@ -364,7 +335,6 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 			//front foot on ground
 			else if (frontCalf.getEnd().getY() >= floor.getY()) {
 				angularAccel = -.02*ANGLE_ACCEL*(center.getX() - frontCalf.getEnd().getX());
-				distToCenter = center.getX() - frontCalf.getEnd().getX();
 				if (backCalf.getEnd().getY() + 5 >= floor.getY()) angularAccel *= .2;
 				frontCalf.update(true);
 				frontThigh.increaseAngVelocity(angularAccel);
@@ -378,7 +348,6 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 			//back foot on ground
 			else {
 				angularAccel = -.02*ANGLE_ACCEL*(center.getX() - backCalf.getEnd().getX());
-				distToCenter = center.getX() - backCalf.getEnd().getX();
 				backCalf.update(true);
 				backThigh.increaseAngVelocity(angularAccel);
 				backThigh.update(true);
@@ -396,7 +365,6 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 			//frontThigh.increaseVertVelocity(GRAVITY);
 			double mid = .5*(backCalf.getEnd().getX() + frontCalf.getEnd().getX());
 			angularAccel = -.005*ANGLE_ACCEL*(center.getX() - mid);
-			distToCenter = center.getX() - mid;
 			backThigh.update(true);
 			backCalf.update(false);
 			frontThigh.update(false);
@@ -412,7 +380,7 @@ public class QWOP extends GraphicsProgram implements KeyListener {
 	  }
 	}
 	//	  public int getState() {
-	//		  if (distance < -5000) return NSTATES-1;
+	//		  if (score < -5000) return NSTATES-1;
 	//	    int frontKnee = (int)(frontKneeAngle/PI*4);
 	//	    int backKnee = (int)Math.pow(2, 2)*(int)(4*frontKneeAngle/PI);
 	//	    int thighs = (int)Math.pow(2, 4)*(int)(4*(thighsAngle + MAX_THIGH_ANGLE)/(2*PI));

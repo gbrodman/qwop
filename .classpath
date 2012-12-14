@@ -3,6 +3,8 @@
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="acm.jar"/>
-	<classpathentry kind="lib" path="/Users/gusbrodman/Downloads/Jama-1.0.3.jar"/>
+	<classpathentry kind="lib" path="F:/Downloads/commons-math3-3.0-bin/commons-math3-3.0/commons-math3-3.0.jar"/>
+	<classpathentry kind="lib" path="F:/Downloads/commons-math3-3.0-bin/commons-math3-3.0/commons-math3-3.0-javadoc.jar"/>
+	<classpathentry kind="lib" path="F:/Downloads/commons-math3-3.0-bin/commons-math3-3.0/commons-math3-3.0-sources.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

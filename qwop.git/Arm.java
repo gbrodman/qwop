@@ -9,7 +9,6 @@ public class Arm extends BodyPart{
   
   private GPoint shoulders;
   private GPoint end;
-  private GPoint endCopy;
   private GLine line;
   private static double pi = 3.14159;
   
@@ -24,7 +23,6 @@ public class Arm extends BodyPart{
     }
     shoulders = s;
     end = new GPoint(shoulders.getX() + length * Math.sin(angle), shoulders.getY() + length * Math.cos(angle));
-    endCopy = new GPoint(end);
     line = new GLine(shoulders.getX(), shoulders.getY(), end.getX(), end.getY());
     p.add(line);
   }
@@ -49,12 +47,8 @@ public class Arm extends BodyPart{
     line.setEndPoint(end.getX(), end.getY());
   }
   
-  public void copyAllValues() {
-    endCopy.setLocation(end);
-  }
-  public void restoreAllValues() {
-    end.setLocation(endCopy);
-  }
+  public void copyAllValues() {}
+  public void restoreAllValues() {}
   
   @Override
   public boolean outOfBounds() {

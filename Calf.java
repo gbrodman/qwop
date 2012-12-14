@@ -18,21 +18,25 @@ public class Calf extends BodyPart {
   private Thigh thigh;
   private static double pi = 3.14159;
   
-  public Calf(GraphicsProgram p, boolean isBack, Thigh t) {
+  public Calf(GraphicsProgram p, boolean isBack, Thigh t, boolean rand) {
     mass = 10;
     length = 50;
     // difference between angle with calf's ground and corresponding 
     // thigh's angle with ground; between 0 and 135 degrees
-    if (isBack) {
-        angleFromThigh = Math.random() * pi / 4;
+    if (rand) {
+      if (isBack) {
+        angleFromThigh = Math.random() * pi / 8;
       } else {
-        angleFromThigh = Math.random() * pi / 4;
+        angleFromThigh = Math.random() * pi / 8;
       }
-//    if (isBack) {
-//      angleFromThigh = 20 * pi / 180;
-//    } else {
-//      angleFromThigh = 40 * pi / 180;
-//    }
+    }
+    else {
+      if (isBack) {
+        angleFromThigh = 20 * pi / 180;
+      } else {
+        angleFromThigh = 40 * pi / 180;
+      }
+    }
     angle = t.getAngle() - angleFromThigh;
     angularVelocity = 0;
     thigh = t;
@@ -41,6 +45,8 @@ public class Calf extends BodyPart {
                           start.getY() + length * Math.cos(angle));
     line = new GLine(start.getX(), start.getY(), end.getX(), end.getY());
     p.add(line);
+    startCopy = new GPoint(start);
+    endCopy = new GPoint(end);
   }
   
   
@@ -81,15 +87,17 @@ public class Calf extends BodyPart {
   }
   
   public void copyAllValues() {
-	startCopy = new GPoint(start);
-	endCopy = new GPoint(end);
-	angleCopy = angle;
-	angularVelocityCopy = angularVelocity;
+    startCopy.setLocation(start);
+    endCopy.setLocation(end);
+    angleCopy = angle;
+    angularVelocityCopy = angularVelocity;
   }
 
   public void restoreAllValues() {
 	 start.setLocation(startCopy);
 	 end.setLocation(endCopy);
+	 angle = angleCopy;
+	 angularVelocity = angularVelocityCopy;
   }
   
   @Override
